@@ -23,3 +23,11 @@ export const updateContact = (text) => ({
   type: actionTypes.UPDATE_CONTACT,
   text
 })
+
+/*
+* SEARCH contact
+*/
+export const searchContact = (text) => ({
+  type: actionTypes.SEARCH_CONTACT,
+  text
+})

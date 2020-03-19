@@ -4,7 +4,8 @@ import { List } from 'immutable';
 const CONSTANTS = {
   addContact: actionsTypes.ADD_CONTACT,
   deleteContact: actionsTypes.DELETE_CONTACT,
-  updateContact: actionsTypes.UPDATE_CONTACT
+  updateContact: actionsTypes.UPDATE_CONTACT,
+  searchContact: actionsTypes.SEARCH_CONTACT,
 };
 
 const initialState = {
@@ -39,6 +40,15 @@ const deleteContact = (state, action) => {
 };
 
 /*
+ ** SEARCH Contact
+ */
+const searchContact = (state, action) => {
+  // console.log('state', state)
+  // console.log('action', action)
+  return action.text
+};
+
+/*
  ** UPDATE Contact
  */
 const updateContact = (state, action) => {
@@ -63,6 +73,8 @@ export default (state = initialState, action) => {
       return deleteContact(state, action)
     case CONSTANTS.updateContact:
       return updateContact(state, action)
+    case CONSTANTS.searchContact:
+      return searchContact(state, action)
     default:
       return state.items;
   }

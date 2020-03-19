@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addContact, deleteContact, updateContact } from './actions';
+import { addContact, deleteContact, updateContact, searchContact } from './actions';
 
 const Contact = ({ contacts, id, firstname, lastname, phone, city, dispatch }) => {
   return (
@@ -69,19 +69,24 @@ const onSubmit = (e, dispatch, contacts ) => {
   }
 }
 
-const SearchContact = ({ dispatch }) => {
+const SearchContact = ({ dispatch, contacts }) => {
   return (
-    <div>
+    <div className="form-group">
       <label htmlFor="city">search :</label>
-      <input type="text" onChange={e => onChange(e, dispatch)} />
+      <input type="text" className="form-control" onChange={e => onChange(e, dispatch, contacts)} />
     </div>
   )
 }
 
-const onChange = (e, dispatch) => {
+const onChange = (e, dispatch, contacts) => {
   const searchText = e.target.value
-  console.log('e into onChange =>', searchText)
-  //dispatch(updateContact(searchText))
+  const searchFirstname = contacts.filter(contact => contact.firstname.toLowerCase().indexOf(searchText) !== -1)
+
+  if(searchFirstname != "") {
+    dispatch(searchContact(searchFirstname))
+  } else {
+    console.log('vide')
+  }
 }
 
 const editContact = (id, dispatch) => {
@@ -103,19 +108,19 @@ const FormCreateContact = ({ dispatch, contacts }) => {
       <form onSubmit={e => onSubmit(e, dispatch, contacts )}>
         <div className="form-group">
           <label htmlFor="firstname">firstname :</label>
-          <input type="text" class="form-control" id="firstname" placeholder="Enter firstname" />
+          <input type="text" className="form-control" id="firstname" placeholder="Enter firstname" />
         </div>
         <div className="form-group">
           <label>lastname  :</label>
-          <input type="text" class="form-control" id="lastname" placeholder="Enter lastname" />
+          <input type="text" className="form-control" id="lastname" placeholder="Enter lastname" />
         </div>
         <div className="form-group">
           <label>phone :</label>
-          <input type="text" class="form-control" id="phone" placeholder="Enter phone" />
+          <input type="text" className="form-control" id="phone" placeholder="Enter phone" />
         </div>
         <div className="form-group">
           <label>city :</label>
-          <input type="text" class="form-control" id="city" placeholder="Enter city" />
+          <input type="text" className="form-control" id="city" placeholder="Enter city" />
         </div>
         <button type="submit" className="btn btn-primary btn-lg">
           Create contact
@@ -126,15 +131,15 @@ const FormCreateContact = ({ dispatch, contacts }) => {
 }
 
 const Contacts = ({ dispatch, contacts }) => {
-  console.log('contacts render', contacts)
+  // console.log('contacts render', contacts)
 
   return (
     <div>
       <ul>
         <div className="container">
-          <FormCreateContact dispatch={dispatch} contacts={contacts}/>
+          <FormCreateContact dispatch={dispatch} contacts={contacts} />
           <br />
-          <SearchContact dispatch={dispatch}/>
+          <SearchContact dispatch={dispatch} contacts={contacts} />
           <br />
           {contacts.map((user, id) => (
             <Contact contacts={contacts} dispatch={dispatch} id={user.id} firstname={user.firstname} lastname={user.lastname} phone={user.phone} city={user.city}/>

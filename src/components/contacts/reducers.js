@@ -6,6 +6,7 @@ const CONSTANTS = {
   deleteContact: actionsTypes.DELETE_CONTACT,
   updateContact: actionsTypes.UPDATE_CONTACT,
   searchContact: actionsTypes.SEARCH_CONTACT,
+  initialContact: actionsTypes.INIT_CONTACT,
 };
 
 const initialState = {
@@ -43,9 +44,14 @@ const deleteContact = (state, action) => {
  ** SEARCH Contact
  */
 const searchContact = (state, action) => {
-  // console.log('state', state)
-  // console.log('action', action)
   return action.text
+};
+
+/*
+ ** INIT Contact
+ */
+const initialContact = (state, action) => {
+  return List(state.items).toJS()
 };
 
 /*
@@ -75,6 +81,8 @@ export default (state = initialState, action) => {
       return updateContact(state, action)
     case CONSTANTS.searchContact:
       return searchContact(state, action)
+   case CONSTANTS.initialContact:
+      return initialContact(initialState, action)
     default:
       return state.items;
   }

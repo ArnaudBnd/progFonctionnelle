@@ -31,3 +31,12 @@ export const searchContact = (text) => ({
   type: actionTypes.SEARCH_CONTACT,
   text
 })
+
+/*
+* SEARCH contact
+*/
+export const initialContact = (text) => ({
+  type: actionTypes.INIT_CONTACT,
+  text
+})
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addContact, deleteContact, updateContact, searchContact } from './actions';
+import { addContact, deleteContact, updateContact, searchContact, initialContact } from './actions';
 
 const Contact = ({ contacts, id, firstname, lastname, phone, city, dispatch }) => {
   return (
@@ -79,13 +79,14 @@ const SearchContact = ({ dispatch, contacts }) => {
 }
 
 const onChange = (e, dispatch, contacts) => {
+  const contactBeforeUpdate = contacts
   const searchText = e.target.value
   const searchFirstname = contacts.filter(contact => contact.firstname.toLowerCase().indexOf(searchText) !== -1)
 
-  if(searchFirstname != "") {
+  if(searchFirstname != "" && searchText != "") {
     dispatch(searchContact(searchFirstname))
   } else {
-    console.log('vide')
+    dispatch(initialContact(contactBeforeUpdate))
   }
 }
 
@@ -131,7 +132,7 @@ const FormCreateContact = ({ dispatch, contacts }) => {
 }
 
 const Contacts = ({ dispatch, contacts }) => {
-  // console.log('contacts render', contacts)
+  console.log('contacts render', contacts)
 
   return (
     <div>

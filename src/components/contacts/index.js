@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { addContact, deleteContact, updateContact, searchContact, initialContact } from './actions';
 
-const Contact = ({ contacts, id, firstname, lastname, phone, city, dispatch }) => {
+const Contact = ({ contacts, idMap, idUser, firstname, lastname, phone, city, dispatch }) => {
   return (
         <div className="card card-default" id="card_contacts">
             <div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
@@ -11,7 +11,7 @@ const Contact = ({ contacts, id, firstname, lastname, phone, city, dispatch }) =
                     <li className="list-group-item">
                         <div className="row w-100">
                             <div className="col-12 col-sm-6 col-md-3 px-0">
-                                <img src={"http://demos.themes.guide/bodeo/assets/images/users/m10"+ id +".jpg"} alt="Mike Anamendolla" className="rounded-circle mx-auto d-block img-fluid" />
+                                <img src={"http://demos.themes.guide/bodeo/assets/images/users/m10"+ idUser +".jpg"} alt="Mike Anamendolla" className="rounded-circle mx-auto d-block img-fluid" />
                             </div>
                             <div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
                                 <span className="fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
@@ -19,7 +19,7 @@ const Contact = ({ contacts, id, firstname, lastname, phone, city, dispatch }) =
                                   type="button"
                                   className="close"
                                   aria-label="Close"
-                                  onClick={() => dispatch(deleteContact(id))}>
+                                  onClick={() => dispatch(deleteContact(idMap))}>
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                                 <span className="text-muted small">{`${lastname}`}</span>
@@ -34,7 +34,7 @@ const Contact = ({ contacts, id, firstname, lastname, phone, city, dispatch }) =
                                   type="button"
                                   className="close"
                                   aria-label="Close"
-                                  onClick={() => editContact(id, dispatch)}>
+                                  onClick={() => editContact(idUser, dispatch)}>
                                   <span aria-hidden="true">editer</span>
                                 </button>
                             </div>
@@ -131,7 +131,11 @@ const FormCreateContact = ({ dispatch, contacts }) => {
 }
 
 const Contacts = ({ dispatch, contacts }) => {
-  console.log('contacts render', contacts)
+  console.log('contacts before render', contacts)
+
+  contacts.sort((a, b) => (a.firstname.toLowerCase() < b.firstname.toLowerCase() ? -1 : 1))
+
+  console.log('contacts after render', contacts)
 
   return (
     <div>
@@ -142,7 +146,7 @@ const Contacts = ({ dispatch, contacts }) => {
           <SearchContact dispatch={dispatch} contacts={contacts} />
           <br />
           {contacts.map((user, id) => (
-            <Contact contacts={contacts} dispatch={dispatch} id={user.id} firstname={user.firstname} lastname={user.lastname} phone={user.phone} city={user.city}/>
+            <Contact contacts={contacts} dispatch={dispatch} idMap={id} idUser={user.id} firstname={user.firstname} lastname={user.lastname} phone={user.phone} city={user.city}/>
           ))}
         </div>
       </ul>
@@ -152,7 +156,11 @@ const Contacts = ({ dispatch, contacts }) => {
 
 const mapStateToProps = (state) => {
   const { contacts } = state;
-  return ({ contacts });
-}
+  // function tri(a,b)
+  // {
+  //   return (a.nom > b.nom)?1:-1;
+  // }
+    return ({ contacts });
+  }
 
 export default connect(mapStateToProps)(Contacts);

@@ -44,7 +44,7 @@ const deleteContact = (state, action) => {
  ** SEARCH Contact
  */
 const searchContact = (state, action) => {
-  return action.text
+  return List(action.text).toJS()
 };
 
 /*

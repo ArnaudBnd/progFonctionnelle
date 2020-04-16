@@ -131,11 +131,7 @@ const FormCreateContact = ({ dispatch, contacts }) => {
 }
 
 const Contacts = ({ dispatch, contacts }) => {
-  console.log('contacts before render', contacts)
-
   contacts.sort((a, b) => (a.firstname.toLowerCase() < b.firstname.toLowerCase() ? -1 : 1))
-
-  console.log('contacts after render', contacts)
 
   return (
     <div>
@@ -155,12 +151,8 @@ const Contacts = ({ dispatch, contacts }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { contacts } = state;
-  // function tri(a,b)
-  // {
-  //   return (a.nom > b.nom)?1:-1;
-  // }
-    return ({ contacts });
+  const { contacts } = state
+    return ({ contacts })
   }
 
-export default connect(mapStateToProps)(Contacts);
+export default connect(mapStateToProps)(Contacts)

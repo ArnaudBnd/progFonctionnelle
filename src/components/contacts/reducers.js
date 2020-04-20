@@ -1,5 +1,6 @@
 import actionsTypes from './actions-types';
 import { List } from 'immutable';
+import { MyImmutableJS } from './myImmutable.js';
 
 const CONSTANTS = {
   addContact: actionsTypes.ADD_CONTACT,
@@ -25,33 +26,36 @@ const initialState = {
   }],
 };
 
+console.log('MyImmutableJS ', MyImmutableJS)
+
 
 /*
  ** ADD Contact
  */
 const addContact = (state, newContact) => {
-  return List(state).push(newContact.contact).toJS()
+  const immutableADD = List(state).push(newContact.contact)
+  return MyImmutableJS.List(immutableADD).toJS()
 }
 
 /*
  ** DELETE Contact
  */
 const deleteContact = (state, action) => {
-  return List(state).remove(action.id)
+  return MyImmutableJS.List(state).deleteFromIndex(action.id)
 };
 
 /*
  ** SEARCH Contact
  */
 const searchContact = (state, action) => {
-  return List(action.text).toJS()
+  return MyImmutableJS.List(action.text).toJS()
 };
 
 /*
  ** INIT Contact
  */
 const initialContact = (state, action) => {
-  return List(state.items).toJS()
+  return MyImmutableJS.List(state.items).toJS()
 };
 
 /*
@@ -59,7 +63,7 @@ const initialContact = (state, action) => {
  */
 const updateContact = (state, action) => {
   const { text } = action
-  const updateContact = List(state).update(text.id, (contact) => {
+  const updateContact = MyImmutableJS.List(state).update(text.id, (contact) => {
     contact.firstname = text.firstname
     contact.lastname = text.lastname
     contact.phone = text.phone
@@ -68,7 +72,7 @@ const updateContact = (state, action) => {
     return contact
   })
 
-  return List(state).set(updateContact).toJS()
+  return updateContact.toJS()
 };
 
 export default (state = initialState, action) => {

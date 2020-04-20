@@ -2,8 +2,11 @@
 
 # ![React + Redux](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIoZQZyVFw8wjwW1GeysQQpUD3M8h9WGob05tj75Ev9N7rKMCS)
 
-# Project immutableJS
-[![npm version](https://img.shields.io/npm/v/react-markdown.svg?style=flat-square)](https://www.npmjs.com/package/react-markdown)[![Build Status](https://img.shields.io/travis/rexxars/react-markdown/master.svg?style=flat-square)](https://travis-ci.org/rexxars/react-markdown)
+# Project MyImmutableJS
+
+## Introduction :
+
+L'objectif est de reproduire la librairie immutable.js.
 
 
 ## Comment l'utiliser :
@@ -19,8 +22,28 @@
 * Redux:
 	Redux est une bibliothèque open-source JavaScript de gestion d'état pour applications web. Elle est plus couramment utilisée avec des bibliothèques comme React ou Angular pour la construction d'interfaces utilisateur.
 
-* immutable.js:
+* MyImmutable.js:
 	Les données immuables ne peuvent pas être modifiées une fois créées, ce qui permet un développement d'applications beaucoup plus simple, aucune copie défensive et permet des techniques avancées de mémorisation et de détection des changements avec une logique simple
+
+## Ce qu'elle comprend comme méthodes:
+
+* Map:
+	- toJS()
+	- toJSON()
+	- toString()
+	- size()
+	- get(key)
+	- set(key, value)
+* List: 
+	- toJSON()
+	- deleteFromIndex(index)
+	- push(number)
+	- unshift(number)
+	- shift()
+	- pop()
+	- reverse()
+	- splice(elmt)
+
 
 ### License
 

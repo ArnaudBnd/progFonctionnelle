@@ -26,14 +26,12 @@ const initialState = {
   }],
 };
 
-console.log('MyImmutableJS ', MyImmutableJS)
-
 
 /*
  ** ADD Contact
  */
 const addContact = (state, newContact) => {
-  const immutableADD = List(state).push(newContact.contact)
+  const immutableADD = MyImmutableJS.List(state).push(newContact.contact)
   return MyImmutableJS.List(immutableADD).toJS()
 }
 
